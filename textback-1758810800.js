@@ -45,7 +45,6 @@
     justify-content: start;
     align-items: start;
     gap: 4px;
-    text-align: left;
     font-size: 12px;
     color: var(--tb-text-muted);
   }
@@ -60,7 +59,8 @@
     accent-color: var(--tb-primary);
     opacity: 0.8;
     border: 1px solid var(--tb-text-muted);
-    border-radius: 8px;
+    border-radius: 4px;
+    line-height: 1.5;
   }
 
   .consent__link {
