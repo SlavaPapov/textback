@@ -15,7 +15,7 @@
     createLeadUrl: 'https://stage.nerdifyit.com/op/api/v3/users/client/new',
     textbackUrl: 'https://connect-stage.dsh-agency.com/api/v1/external/messages/textback',
     appPhone: '+17606182740',
-    landingGuid: 'stage.nerdifyit.com_en',
+    landingGuid: 'gonerdify_com_blog',
     lrtrackerId: '55c35f469553770fe8a3c66d'
   };
 
