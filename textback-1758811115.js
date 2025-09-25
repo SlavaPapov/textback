@@ -47,9 +47,11 @@
     gap: 4px;
     font-size: 12px;
     color: var(--tb-text-muted);
+    line-height: 1.5;
   }
 
   .consent__control {
+    appearance: auto;
     width: 16px;
     height: 16px;
     padding: 0;
@@ -60,7 +62,6 @@
     opacity: 0.8;
     border: 1px solid var(--tb-text-muted);
     border-radius: 4px;
-    line-height: 1.5;
   }
 
   .consent__link {
