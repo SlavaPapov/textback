@@ -24,14 +24,9 @@
   :root {
     --tb-primary: #24A652;
     --tb-primary-hover: #1e8a44;
-    --tb-error: #fa1d47;
-    --tb-error-bg: #fffbd2;
-    --tb-error-border: #ff3363;
+    --tb-error: #ff3363;
     --tb-text-muted: #797C91;
-    --tb-border: #ccc;
     --tb-bg: #fff;
-    --tb-radius-sm: 4px;
-    --tb-radius: 8px;
     --tb-radius-lg: 10px;
   }
 
@@ -46,13 +41,6 @@
   }
 
   .consent {
-    --side-size: 16px;
-    --cc-gap: 8px;
-    --cc-selected-bkg-color: var(--tb-primary);
-    --cc-idle-frame-color: #797C9180;
-    --cc-selected-frame-color: var(--tb-primary);
-    --cc-border-radius: var(--tb-radius-sm);
-    --cc-line-height: 150%;
     display: flex;
     justify-content: start;
     align-items: start;
@@ -63,14 +51,16 @@
   }
 
   .consent__control {
-    width: var(--side-size);
-    height: var(--side-size);
+    width: 16px;
+    height: 16px;
     padding: 0;
     margin: 0;
     cursor: pointer;
     flex-shrink: 0;
     accent-color: var(--tb-primary);
     opacity: 0.8;
+    border: 1px solid var(--tb-text-muted);
+    border-radius: 8px;
   }
 
   .consent__link {
@@ -79,11 +69,11 @@
 
   .textback[data-error] .input-wrapper {
     background-color: var(--tb-error-bg);
-    border-color: var(--tb-error-border);
+    border-color: var(--tb-error);
   }
 
   .textback[data-error] .phone-input {
-    color: var(--tb-error-border);
+    color: var(--tb-error);
   }
 
   .textback[data-error] .textback__error {
@@ -94,7 +84,7 @@
     height: 50px;
     margin-bottom: 10px;    
     border-radius: var(--tb-radius-lg);
-    border: 1px solid var(--tb-border);
+    border: 1px solid #ccc;
     display: flex;
     align-items: center;
     padding: 0 15px 0 20px;
