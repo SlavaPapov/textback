@@ -48,6 +48,8 @@
     font-size: 12px;
     color: var(--tb-text-muted);
     line-height: 1.5;
+    text-align: left;
+    text-align-last: left;
   }
 
   .consent__control {
