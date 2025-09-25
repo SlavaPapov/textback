@@ -651,7 +651,7 @@
       form.dataset.error = true;
       console.log(error.message);
     } finally {
-      const text = form.dataset.submitted ? "We'll text you in a second!" : "Text me now";
+      const text = form.dataset.submitted ? "Wait for SMS" : "Text me now";
       if (form.dataset.submitted) {
         form.refs.submits.forEach(b => b.textContent = text);
       }
