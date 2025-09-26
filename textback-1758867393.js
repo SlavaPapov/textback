@@ -696,7 +696,7 @@
           <div class="textback__consent">
             <label class="consent">
               <input class="consent__control" data-id="consent" required name="accept_terms" type="checkbox">
-              <span class="consent__text">I accept the <a class="consent__link" href="/terms-of-service">Nerdify Terms of Service</a> and have read the <a class="consent__link" href="/privacy-policy">Nerdify Privacy Policy</a></span>
+              <span class="consent__text">I accept the <a class="consent__link" href="/terms-and-conditions">Nerdify Terms of Service</a> and have read the <a class="consent__link" href="/privacy-policy">Nerdify Privacy Policy</a></span>
             </label>
           </div>
 
