@@ -25,6 +25,7 @@
     --tb-primary: #24A652;
     --tb-primary-hover: #1e8a44;
     --tb-error: #ff3363;
+    --tb-success: #24A652;
     --tb-text-muted: #797C91;
     --tb-bg: #fff;
     --tb-radius-lg: 10px;
@@ -68,6 +69,7 @@
 
   .consent__link {
     color: inherit;
+    text-decoration: underline;
   }
 
   .textback[data-error] .input-wrapper {
@@ -79,7 +81,11 @@
     color: var(--tb-error);
   }
 
-  .textback[data-error] .textback__error {
+  .textback[data-error] .textback__message--error {
+    display: block;
+  }
+  
+  .textback[data-submitted] .textback__message--success {
     display: block;
   }
 
@@ -143,13 +149,20 @@
     display: none;
   }  
 
-  .textback__error {
+  .textback__message {
     display: none;
     margin-bottom: 12px;
-    color: #e97473;
     font-size: 14px;
     text-align: center;
     font-weight: bold;
+  }
+
+  .textback__message--error {
+    color: var(--tb-error);
+  }
+
+  .textback__message--success {
+    color: var(--tb-success);
   }
 
   .textback__flag {
@@ -551,8 +564,6 @@
     form.refs.submits.forEach(b => b.disabled = true);
     form.refs.consents.forEach(c => c.disabled = true);
 
-    // let redirected = false;
-
     try {
       // Step 1: Phone number validation
       const phoneResponse = await phoneValidate(form.refs.phone.number);
@@ -567,21 +578,21 @@
 
       // Step 2: Check for lead existence
       const currentUrl = window.location.href;
-      const { search } = window.location;
+      // const { search } = window.location;
       const existsData = await checkLeadExists(form.refs.phone.number);
 
       if (existsData.result) {
         // Lead exists, send textback
-        if (window.tracker && window.tracker.config && window.tracker.config.setCid) {
-          window.tracker.config.setCid(existsData?._id);
-        }
-        if (window.trackValues) {
-          window.trackValues('stage', 'textbackSentSuccessfully', {
-            context: {
-              userAgent: window.navigator.userAgent,
-            }
-          });
-        }
+        // if (window.tracker && window.tracker.config && window.tracker.config.setCid) {
+        //   window.tracker.config.setCid(existsData?._id);
+        // }
+        // if (window.trackValues) {
+        //   window.trackValues('stage', 'textbackSentSuccessfully', {
+        //     context: {
+        //       userAgent: window.navigator.userAgent,
+        //     }
+        //   });
+        // }
 
         const textbackData = {
           to_num: form.refs.phone.number,
@@ -594,10 +605,12 @@
         // Step 3.1: If the lead exists, then send the request /textback
         const textbackResponse = await sentTextBack(textbackData);
 
-        if (textbackResponse.ok) {
-          alert("Thanks for giving us a try.\nWe'll text you in a second!");
+        if (!textbackResponse.ok) {
+          form.dataset.error = true;
+          form.refs.submits.forEach(b => b.disabled = false);
+          form.refs.consents.forEach(c => c.disabled = false);
+        } else {
           form.dataset.submitted = true;
-          return;
         }
 
       } else {
@@ -630,22 +643,19 @@
           };
 
           const createLeadData = await createLead(data);
-
           if (createLeadData?._id) {
-            if (window.tracker && window.tracker.config && window.tracker.config.setCid) {
-              window.tracker.config.setCid(createLeadData?._id);
-            }
-            if (window.trackValues) {
-              window.trackValues('stage', 'textbackSentSuccessfully', {
-                context: {
-                  userAgent: window.navigator.userAgent,
-                },
-              });
-            }
+            // if (window.tracker && window.tracker.config && window.tracker.config.setCid) {
+            //   window.tracker.config.setCid(createLeadData?._id);
+            // }
+            // if (window.trackValues) {
+            //   window.trackValues('stage', 'textbackSentSuccessfully', {
+            //     context: {
+            //       userAgent: window.navigator.userAgent,
+            //     },
+            //   });
+            // }
 
-            alert("Thanks for giving us a try.\nWe'll text you in a second!");
             form.dataset.submitted = true;
-            return;
           }
         }
       }
@@ -691,7 +701,8 @@
   function createFormHTML() {
     return `
         <form class="textback">
-          <div class="textback__error">Looks like you have mistyped your phone number. &NewLine;Please check and re-enter it.</div>
+          <div class="textback__message textback__message--error">Looks like you have mistyped your phone number. &NewLine;Please check and re-enter it.</div>
+          <div class="textback__message textback__message--success">Thanks for giving us a try.&NewLine;We'll text you in a second!</div>
 
           <div class="textback__consent">
             <label class="consent">
